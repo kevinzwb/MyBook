@@ -1,9 +1,7 @@
-\contentsline {chapter}{摘\hskip 1em\relax 要}{vii}{chapter*.1}
-\contentsline {chapter}{Abstract}{ix}{chapter*.2}
-\contentsline {chapter}{目\hskip 1em\relax 录}{xi}{section*.3}
-\contentsline {chapter}{图形列表}{xiii}{section*.5}
-\contentsline {chapter}{表格列表}{xv}{section*.7}
-\contentsline {chapter}{符号列表}{xvii}{chapter*.9}
+\contentsline {chapter}{目\hskip 1em\relax 录}{i}{section*.1}
+\contentsline {chapter}{图形列表}{iii}{section*.3}
+\contentsline {chapter}{表格列表}{v}{section*.5}
+\contentsline {chapter}{符号列表}{vii}{chapter*.7}
 \contentsline {part}{第一部分\hspace {1em}\LaTeX {}}{1}{part.1}
 \contentsline {chapter}{\numberline {第一章\hspace {0.3em}}引言}{3}{chapter.1}
 \contentsline {section}{\numberline {1.1}系统要求}{3}{section.1.1}
@@ -24,14 +22,17 @@
 \contentsline {subsection}{\numberline {2.3.3}参考文献引用}{11}{subsection.2.3.3}
 \contentsline {section}{\numberline {2.4}常见使用问题}{12}{section.2.4}
 \contentsline {part}{第二部分\hspace {1em}增强学习}{17}{part.2}
-\contentsline {chapter}{\numberline {第三章\hspace {0.3em}}增强学习简介}{19}{chapter.3}
-\contentsline {section}{\numberline {3.1}系统要求}{20}{section.3.1}
-\contentsline {section}{\numberline {3.2}问题反馈}{20}{section.3.2}
-\contentsline {chapter}{\numberline {附录 A\hspace {0.3em}}中国科学院大学学位论文撰写要求}{21}{appendix.A}
-\contentsline {section}{\numberline {A.1}学位论文的一般要求}{21}{section.A.1}
-\contentsline {section}{\numberline {A.2}学位论文的水平要求}{21}{section.A.2}
-\contentsline {section}{\numberline {A.3}撰写学位论文的语言及文字}{21}{section.A.3}
-\contentsline {section}{\numberline {A.4}学位论文的主要组成部分}{22}{section.A.4}
-\contentsline {chapter}{参考文献}{25}{section*.17}
-\contentsline {chapter}{作者简历及攻读学位期间发表的学术论文与科研成果}{25}{appendix*.18}
-\contentsline {chapter}{致\hskip 1em\relax 谢}{27}{appendix*.25}
+\contentsline {chapter}{\numberline {第三章\hspace {0.3em}}理论简介}{19}{chapter.3}
+\contentsline {chapter}{\numberline {第四章\hspace {0.3em}}开放模型下的策略迭代}{23}{chapter.4}
+\contentsline {section}{\numberline {4.1}价值函数的近似}{23}{section.4.1}
+\contentsline {section}{\numberline {4.2}近似价值函数的设计}{23}{section.4.2}
+\contentsline {section}{\numberline {4.3}采样复用}{23}{section.4.3}
+\contentsline {section}{\numberline {4.4}主动学习}{23}{section.4.4}
+\contentsline {section}{\numberline {4.5}稳健迭代}{23}{section.4.5}
+\contentsline {chapter}{\numberline {第五章\hspace {0.3em}}开放模型下的策略搜寻}{25}{chapter.5}
+\contentsline {section}{\numberline {5.1}梯度上升算法}{25}{section.5.1}
+\contentsline {section}{\numberline {5.2}期望最大化算法}{25}{section.5.2}
+\contentsline {section}{\numberline {5.3}先验策略}{25}{section.5.3}
+\contentsline {chapter}{\numberline {第六章\hspace {0.3em}}限定模型的增强学习}{27}{chapter.6}
+\contentsline {section}{\numberline {6.1}转移模型估计}{27}{section.6.1}
+\contentsline {section}{\numberline {6.2}维度压缩}{27}{section.6.2}

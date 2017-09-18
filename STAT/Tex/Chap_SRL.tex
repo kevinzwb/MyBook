@@ -1,10 +1,6 @@
 \part{增强学习}
-\chapter{增强学习简介} \label{chap:introduction}
-
-
+\chapter{理论简介} 
 这部分是对Masashi Sugiyama的《Statistical Reinforcement Learning: Modern Machine Learning Approaches》的笔记。
-
-
 增强学习试图解决未知环境下的决策问题。增强学习可以概括为：两个要素（ \textbf{环境}， \textbf{玩家}），三种信号（ \textbf{状态}， \textbf{行动}， \textbf{反馈}）。在一个未知的环境下，玩家基于\textbf{策略}选择行动，之后，环境更新状态，并给予玩家反馈。基于环境和玩家的互动，在没有任何指令的情况下，玩家也可以完成指定任务。通常情况下，我们通过马尔可夫决策过程来建模增强学习任务。在任一离散时间$t$，玩家观察到环境状态信号$s_t \in S$，给出其行动信号$a_t \in A$，相应的，环境更新状态信号$s_{t+1} \in S$，给出即时反馈信号$r$.
 $$r_t = r(s_t,a_t,s_{t+1})$$
 状态信号属于状态空间，行动信号属于行动空间。$r(s_t,a_t,s_{t+1})$ 是即时反馈方程。
@@ -17,7 +13,8 @@ $$ p(s) \geq 0 \quad  \forall s \in S $$
 $$\int_{s \in S} p(s) ds = 1 $$
 事实上，概率质量函数可以通过概率密度函数计算(基于Dirac Delta Function)，因此，之后我们只关注连续的状态空间。
 $$p(s) = \sum_{s^\prime \in S} \delta(s^\prime - s)P(s^\prime)$$
-环境的动态变化可以用条件概率密度表达成状态的转化概率分布（transition probability distribution）
+
+环境的动态变化可以用条件概率密度表达成状态的转移概率分布（transition probability distribution）
 $$p(s^\prime|s,a) \geq 0 \quad  \forall s,s^\prime \in S \quad  \forall a \in A $$
 $$\int_{s^\prime \in S} p(s^\prime|s,a) ds^\prime = 1  \quad  \forall s \in S \quad  \forall a \in A $$
 玩家通过\textbf{策略}$\pi$来决定行动。当采取确定策略行动时，我们可以把策略看成状态的函数。
@@ -30,31 +27,42 @@ $$\int_{a \in A} \pi(a|s) da  = 1  \quad  \forall s \in S $$
 
 互动的次数可以是有限的，也可以是无限的。在此，我们只关注有限互动的增强学习任务。一次经历$h$可以被表达成
 $$ h = [s_1,a_1,\dots,s_T,a_T,s_{T+1} $$
-
-一次经历的\textbf{回报}$R$是衰减累计反馈。
+一次经历$h$的\textbf{回报}$R$是衰减累计反馈。$\gamma$ 是衰减因子。
 $$R(h) = \sum_{t=1}^T\gamma^{t-1}r(s_t,a_t,s_{t+1})$$
-$\gamma$ 是衰减因子。
-
-增强学习的目的是发展出最佳策略$\pi_*$
 
 
+增强学习的目的是促使玩家形成最佳策略$\pi_*$，来获得最大的经历回报。
+$$\pi_* = \arg \max_{\pi} \mathbb{E}_{p^{\pi}(h)} [R(h)]$$
+$\mathbb{E}_{p^{\pi}(h)}$是一次经历的期望，${p^{\pi}(h)}$是策略$\pi$下的经历$h$的概率密度。
+$$p^\pi(h)=p(s_1)\prod_{t=1}^T p(s_{t+1}|s_t,a_t)\pi(a_t|s_t)$$
 
-\section{系统要求}
+增强学习可以分为两类，一类基于限定模型，一类基于开放模型。这里\textbf{模型}指代上面提及到的转移概率$p(s^\prime|s,a)$。限定模型的增强学习，转移概率是先验的，转移模型是显性地用于学习行动策略。开放的增强学习，玩家不能直接使用转移概率来寻找策略。一般来说，如果存在很强关于转移概率的先验知识，限定模型的方法更合适。如果不存在很好的先验知识，开放模型的增强学习更适合。
 
-\texttt{ucasthesis}宏包可以在目前大多数的\TeX{}编译系统中使用，例如C\TeX{}、MiK\TeX{}、\TeX{}Live。推荐的\TeX{}编译系统 + 文本编辑器为
-\begin{itemize}
-    \item Linux: \TeX{}Live + vim or Texmaker
-    \item MacOS: \TeX{}Live or Mac\TeX{} + Macvim or Texmaker
-    \item Windows: \TeX{}Live or Mik\TeX{}  + Texmaker
-\end{itemize}
-\TeX{}编译系统 (如MiK\TeX{}、\TeX{}Live) 用于提供编译环境，文本编辑器 (如Texmaker、vim) 用于编辑\TeX{}源文件。
+对于限定模型的增强学习，环境的转移模型是先验的，玩家不需要花费额外的精力来理解环境变化。这种类型非常适合于数据充足的任务。
 
-\section{问题反馈}
+\textbf{策略迭代}是开放模型下增强学习最流行的求解算法。策略迭代使用\textbf{价值函数}。价值函数$Q^\pi(s,a)$是关于状态$s$和行动$a$的函数,是某状态，行动，和策略的预期回报。
+$$Q^\pi(s,a) = \mathbb{E}_{p^{\pi}(h)} [R(h)|s_1 =s,a_1=a] $$
+最优价值函数是拥有最大价值的状态和行动组合$Q_*(s,a) = \max_{\pi} Q^\pi(s,a) $。最优策略$\pi_*$
+$$\pi_*(a|s) = \delta(a - \arg \max_{a^\prime} Q_*(s,a^\prime) )$$
+最优价值函数是未知，我们通过策略迭代来估计策略的价值$Q^\pi$，然后基于策略价值$Q^\pi$更新策略$\pi$，通过不断的迭代，是价值函数收敛到最优$Q_*(s,a)$。一般来说，策略迭代的效果取决于价值评估的效力。但是，提高价值评估的效力并不意味着策略质量的提升，而且微小的价值评估变化可能会带来不同的策略选择。此外，当行动空间是连续的情况，策略迭代算法计算量巨大，非常难以训练。
+为了克服策略迭代的缺点，\textbf{策略搜寻}不采用价值评估，直接学习最大化预期回报的策略函数。在策略搜寻中，最关键的问题是如何从海量的策略空间中筛选出好的策略。
+$$\pi_* = \arg \max_{\pi} \mathbb{E}_{p^{\pi}(h)} [R(h)]$$
 
-\begin{center}
-莫晃锐 (mohuangrui) \quad mohuangrui@gmail.com
 
-模版下载地址: \url{https://github.com/mohuangrui/ucasthesis}
-\end{center}
+\chapter{开放模型下的策略迭代} 
+\section{价值函数的近似}
+\section{近似价值函数的设计}
+\section{采样复用}
+\section{主动学习}
+\section{稳健迭代}
 
-欢迎大家反馈模板不足之处，一起不断改进模板。希望大家向同事积极推广\LaTeX{}，一起更高效地做科研。
+
+\chapter{开放模型下的策略搜寻} 
+\section{梯度上升算法}
+\section{期望最大化算法}
+\section{先验策略}
+
+\chapter{限定模型的增强学习} 
+\section{转移模型估计}
+\section{维度压缩}
+
