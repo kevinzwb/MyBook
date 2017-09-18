@@ -1,0 +1,60 @@
+\part{增强学习}
+\chapter{增强学习简介} \label{chap:introduction}
+
+
+这部分是对Masashi Sugiyama的《Statistical Reinforcement Learning: Modern Machine Learning Approaches》的笔记。
+
+
+增强学习试图解决未知环境下的决策问题。增强学习可以概括为：两个要素（ \textbf{环境}， \textbf{玩家}），三种信号（ \textbf{状态}， \textbf{行动}， \textbf{反馈}）。在一个未知的环境下，玩家基于\textbf{策略}选择行动，之后，环境更新状态，并给予玩家反馈。基于环境和玩家的互动，在没有任何指令的情况下，玩家也可以完成指定任务。通常情况下，我们通过马尔可夫决策过程来建模增强学习任务。在任一离散时间$t$，玩家观察到环境状态信号$s_t \in S$，给出其行动信号$a_t \in A$，相应的，环境更新状态信号$s_{t+1} \in S$，给出即时反馈信号$r$.
+$$r_t = r(s_t,a_t,s_{t+1})$$
+状态信号属于状态空间，行动信号属于行动空间。$r(s_t,a_t,s_{t+1})$ 是即时反馈方程。
+
+环境的初始状态$s_1$符合概率分布。如果状态空间是离散的，则初始概率分布可以通过概率质量函数计算$P(s)$
+$$0 \leq P(s) \leq 1 \quad  \forall s \in S $$
+$$\sum_{s \in S } P(s) = 1$$
+如果状态空间是连续的，则初始概率分布可以通过概率密度函数计算
+$$ p(s) \geq 0 \quad  \forall s \in S $$
+$$\int_{s \in S} p(s) ds = 1 $$
+事实上，概率质量函数可以通过概率密度函数计算(基于Dirac Delta Function)，因此，之后我们只关注连续的状态空间。
+$$p(s) = \sum_{s^\prime \in S} \delta(s^\prime - s)P(s^\prime)$$
+环境的动态变化可以用条件概率密度表达成状态的转化概率分布（transition probability distribution）
+$$p(s^\prime|s,a) \geq 0 \quad  \forall s,s^\prime \in S \quad  \forall a \in A $$
+$$\int_{s^\prime \in S} p(s^\prime|s,a) ds^\prime = 1  \quad  \forall s \in S \quad  \forall a \in A $$
+玩家通过\textbf{策略}$\pi$来决定行动。当采取确定策略行动时，我们可以把策略看成状态的函数。
+$$\pi(s) \in A \quad  \forall s \in S $$
+行动空间可以是离散的也可以是连续的。
+当处理比较复杂的增强学习问题时，随机策略是更好的选择。此时，在某一状态下，玩家的行动选择存在概率分布。随机策略可以表达成行动和状态的条件概率。
+$$\pi(a|s) \geq 0 \quad  \forall s \in S \quad  \forall a \in A $$
+$$\int_{a \in A} \pi(a|s) da  = 1  \quad  \forall s \in S $$
+随机策略可以帮助玩家更好的探索环境的所有状态。玩家和环境的一系列互动（[状态，行动]）被称为\textbf{经历}。
+
+互动的次数可以是有限的，也可以是无限的。在此，我们只关注有限互动的增强学习任务。一次经历$h$可以被表达成
+$$ h = [s_1,a_1,\dots,s_T,a_T,s_{T+1} $$
+
+一次经历的\textbf{回报}$R$是衰减累计反馈。
+$$R(h) = \sum_{t=1}^T\gamma^{t-1}r(s_t,a_t,s_{t+1})$$
+$\gamma$ 是衰减因子。
+
+增强学习的目的是发展出最佳策略$\pi_*$
+
+
+
+\section{系统要求}
+
+\texttt{ucasthesis}宏包可以在目前大多数的\TeX{}编译系统中使用，例如C\TeX{}、MiK\TeX{}、\TeX{}Live。推荐的\TeX{}编译系统 + 文本编辑器为
+\begin{itemize}
+    \item Linux: \TeX{}Live + vim or Texmaker
+    \item MacOS: \TeX{}Live or Mac\TeX{} + Macvim or Texmaker
+    \item Windows: \TeX{}Live or Mik\TeX{}  + Texmaker
+\end{itemize}
+\TeX{}编译系统 (如MiK\TeX{}、\TeX{}Live) 用于提供编译环境，文本编辑器 (如Texmaker、vim) 用于编辑\TeX{}源文件。
+
+\section{问题反馈}
+
+\begin{center}
+莫晃锐 (mohuangrui) \quad mohuangrui@gmail.com
+
+模版下载地址: \url{https://github.com/mohuangrui/ucasthesis}
+\end{center}
+
+欢迎大家反馈模板不足之处，一起不断改进模板。希望大家向同事积极推广\LaTeX{}，一起更高效地做科研。
